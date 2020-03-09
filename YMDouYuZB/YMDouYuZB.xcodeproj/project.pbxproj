@@ -99,6 +99,7 @@
 		A0397805241606FE00C2ED10 /* YMDouYuZB */ = {
 			isa = PBXGroup;
 			children = (
+				A0397836241625E800C2ED10 /* classess */,
 				A0397806241606FE00C2ED10 /* AppDelegate.swift */,
 				A0397808241606FE00C2ED10 /* SceneDelegate.swift */,
 				A039780A241606FE00C2ED10 /* ViewController.swift */,
@@ -126,6 +127,61 @@
 				A039782A2416070400C2ED10 /* Info.plist */,
 			);
 			path = YMDouYuZBUITests;
+			sourceTree = "<group>";
+		};
+		A0397836241625E800C2ED10 /* classess */ = {
+			isa = PBXGroup;
+			children = (
+				A039783C241625E800C2ED10 /* Main */,
+				A0397837241625E800C2ED10 /* Home */,
+				A0397839241625E800C2ED10 /* Live  */,
+				A039783A241625E800C2ED10 /* Follow */,
+				A039783B241625E800C2ED10 /* Profile */,
+				A0397838241625E800C2ED10 /* Tools */,
+			);
+			path = classess;
+			sourceTree = "<group>";
+		};
+		A0397837241625E800C2ED10 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		A0397838241625E800C2ED10 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		A0397839241625E800C2ED10 /* Live  */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Live ";
+			sourceTree = "<group>";
+		};
+		A039783A241625E800C2ED10 /* Follow */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Follow;
+			sourceTree = "<group>";
+		};
+		A039783B241625E800C2ED10 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		A039783C241625E800C2ED10 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
