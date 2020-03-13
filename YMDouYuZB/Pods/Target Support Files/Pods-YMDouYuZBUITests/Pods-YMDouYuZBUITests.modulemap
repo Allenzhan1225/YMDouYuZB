@@ -1,0 +1,6 @@
+framework module Pods_YMDouYuZBUITests {
+  umbrella header "Pods-YMDouYuZBUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

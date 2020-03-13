@@ -23,6 +23,8 @@ private let sectionHeaderH : CGFloat = 50
 class RecommendController: UIViewController {
     
     // MARK:-懒加载
+    private lazy var viewModel : RecommedViewModel = RecommedViewModel()
+    
     private lazy var collectionView : UICollectionView = {[weak self] in
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: margin, bottom: 0, right: 10)
@@ -46,7 +48,17 @@ class RecommendController: UIViewController {
     // MARK:- 生命周期函数
     override func viewDidLoad() {
         super.viewDidLoad()
+        //设置UI
         setupUI()
+        //发送网络请求
+        loadData()
+//        NetworkTools.requestData(type: MethodType.get, URLString: "http://httpbin.org/get") { (responseObj) in
+//             print(responseObj)
+//        }
+//
+//        NetworkTools.requestData(type: MethodType.post, URLString: "http://httpbin.org/post") { (responseObj) in
+//             print(responseObj)
+//        }
         
     }
 
@@ -61,22 +73,38 @@ extension RecommendController {
 }
 
 
+// MARK:- 网络请求
+extension  RecommendController {
+    private func loadData(){
+        viewModel.requestData {[weak self] in
+            self?.collectionView.reloadData()
+        }
+    }
+}
+
 // MARK:- UICollectionViewDataSource
 extension RecommendController : UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 10
+        return viewModel.anchorGroups.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        let group = viewModel.anchorGroups[section]
+        return group.anchors.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var cell : UICollectionViewCell!
-        if indexPath.section != 1 {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: kNormalCellId, for: indexPath)
+        var cell : UICollectionViewCell = UICollectionViewCell()
+        let group = viewModel.anchorGroups[indexPath.section]
+        let anchorModel = group.anchors[indexPath.row]
+        if indexPath.section == 1 {
+           let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kPrettyCellId, for: indexPath) as! CollectionViewPrettyCell
+            cell.model = anchorModel
+            return cell
         }else{
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: kPrettyCellId, for: indexPath)
+           let  cell = collectionView.dequeueReusableCell(withReuseIdentifier: kNormalCellId, for: indexPath) as! CollectionViewNormalCell
+             cell.model = anchorModel
+            return cell
         }
        
 
@@ -85,8 +113,12 @@ extension RecommendController : UICollectionViewDataSource {
     
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: kSectionHaderCellId, for: indexPath)
-        return headerView
+        if kind == UICollectionView.elementKindSectionHeader {
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: kSectionHaderCellId, for: indexPath) as! RecommendReusableHeaderView
+                headerView.group =   viewModel.anchorGroups[indexPath.section]
+                return headerView
+        }
+        return UICollectionReusableView()
     }
 }
 
@@ -94,10 +126,10 @@ extension RecommendController : UICollectionViewDataSource {
 // MARK:- layoutDelegate
 extension RecommendController : UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath.section != 1 {
-            return CGSize(width: itemW, height: itemH)
-        }else{
+        if indexPath.section == 1 {
             return CGSize(width: itemW, height: prettyItemH)
+        }else{
+            return CGSize(width: itemW, height: itemH)
         }
     }
 }

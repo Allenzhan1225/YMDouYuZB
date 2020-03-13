@@ -75,6 +75,12 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="186" height="157"/>
+            <connections>
+                <outlet property="imageView" destination="toc-6Q-Iwy" id="6Hp-td-OX1"/>
+                <outlet property="nameLb" destination="eBP-xo-Pdl" id="5DB-lL-b7g"/>
+                <outlet property="playCountLb" destination="R6C-Z0-y84" id="me2-d5-W3p"/>
+                <outlet property="titleLb" destination="IK9-MH-cfu" id="DPH-Nw-Rl3"/>
+            </connections>
             <point key="canvasLocation" x="10.144927536231885" y="75.334821428571431"/>
         </collectionViewCell>
     </objects>

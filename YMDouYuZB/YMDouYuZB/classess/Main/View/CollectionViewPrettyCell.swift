@@ -7,12 +7,28 @@
 //
 
 import UIKit
-
+import Kingfisher
 class CollectionViewPrettyCell: UICollectionViewCell {
 
+    @IBOutlet weak var cityLb: UILabel!
+    @IBOutlet weak var titleLb: UILabel!
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var playCountLb: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 8
+        imageView.clipsToBounds = true
+    }
+    
+    var model : AnchorModel?{
+        didSet{
+            
+            cityLb.text = model?.anchor_city
+            playCountLb.text = "\(model?.online ?? 1)"
+            titleLb.text = model?.room_name
+            imageView.kf.setImage(with: URL(string: model?.vertical_src ?? ""))
+        }
     }
 
 }
